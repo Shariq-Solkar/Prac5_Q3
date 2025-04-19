@@ -10,19 +10,15 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    
-                    docker.build('java-hello-world-app', '.')
-                    
+                dir('Q3') {
+                    bat 'docker build -t java-hello-world-app .'
                 }
             }
         }
 
         stage('Run Docker Container') {
             steps {
-                script {
-                    docker.image('java-hello-world-app').run()
-                }
+                bat 'docker run --rm java-hello-world-app'
             }
         }
     }
