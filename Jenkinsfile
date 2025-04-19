@@ -1,19 +1,25 @@
 pipeline {
     agent any
 
+    environment {
+        PROJECT_PATH = "D:\Shariq\Devops\prac5\Q3"
+        IMAGE_NAME = "my-java-app"
+        CONTAINER_NAME = "java-container"
+    }
+
     stages {
-        stage('Clone Repository') {
+        stage('Build Java Application') {
             steps {
-                git branch: 'main', url: 'https://github.com/Shariq-Solkar/Prac5_Q3.git'
+                script {
+                    bat "javac %PROJECT_PATH%/HelloWorld.java"
+                }
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    dir('Q3') {
-                        docker.build("java-hello-world-app", ".")
-                    }
+                    bat "docker build -t %IMAGE_NAME% %PROJECT_PATH%"
                 }
             }
         }
@@ -21,7 +27,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.image("java-hello-world-app").run()
+                    bat "docker run --rm --name %CONTAINER_NAME% %IMAGE_NAME%"
                 }
             }
         }
