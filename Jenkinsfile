@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/Mariyanaaz/DO_Practical_5.git'
+                git branch: 'main', url: 'https://github.com/Shariq-Solkar/Prac5_Q3.git'
             }
         }
 
